@@ -24,6 +24,7 @@ module.exports = {
   resolve: {
     extensions: [".js", ".ts", ".tsx", ".jsx"],
   },
+  plugins: [new HtmlWebpackPlugin({ template: "./src/index.html" })],
   devServer: {
     historyApiFallback: true,
   },
