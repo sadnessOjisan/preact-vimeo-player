@@ -9,3 +9,8 @@ this is monorepo.
 ```
 yarn install
 ```
+
+## TODO
+
+- [ ] use TS
+- [ ] use FC
