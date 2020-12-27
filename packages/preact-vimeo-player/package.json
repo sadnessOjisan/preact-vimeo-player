@@ -1,6 +1,12 @@
 {
   "name": "preact-vimeo-player",
   "version": "1.0.0",
-  "main": "lib/index.tsx",
-  "license": "MIT"
+  "main": "lib/index.jsx",
+  "license": "MIT",
+  "dependencies": {
+    "@vimeo/player": "^2.14.1"
+  },
+  "devDependencies": {
+    "@types/vimeo__player": "^2.10.0"
+  }
 }
