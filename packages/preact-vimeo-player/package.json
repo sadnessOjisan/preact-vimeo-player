@@ -1,0 +1,6 @@
+{
+  "name": "preact-vimeo-player",
+  "version": "1.0.0",
+  "main": "lib/index.tsx",
+  "license": "MIT"
+}
