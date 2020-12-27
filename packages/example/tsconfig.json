@@ -1,11 +1,10 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     /* Basic Options */
     "outDir": "dist",
-    "rootDir": "src",
     "jsx": "react",
     "jsxFactory": "h"
   },
-  "include": ["src"],
-  "references": [{ "path": "../.." }]
+  "include": ["src"]
 }
