@@ -1,5 +1,5 @@
 import { h, Component } from "preact";
-import Player from "@vimeo/player";
+import Player, { Options } from "@vimeo/player";
 
 const eventNames = {
   play: "onPlay",
@@ -9,10 +9,37 @@ const eventNames = {
   progress: "onProgress",
   error: "onError",
   loaded: "onLoaded",
+} as const;
+
+type EventKey = keyof typeof eventNames;
+
+type Props = {
+  video: string;
+  width: number;
+  height: number;
+  start: number;
+  autoplay: boolean;
+  controls: boolean;
+  loop: boolean;
+  muted: boolean;
+  responsive: boolean;
+  onPlay: () => void;
+  onPause: () => void;
+  onError: () => void;
+  onReady: () => void;
+  onEnd: () => void;
+  onTimeUpdate: () => void;
+  onProgress: () => void;
+  onLoaded: () => void;
+  id: string;
+  className?: string;
+  style?: string | h.JSX.CSSProperties;
 };
 
-class Vimeo extends Component {
-  constructor(props) {
+class Vimeo extends Component<Props> {
+  // @ts-ignore
+  player: Player;
+  constructor(props: Props) {
     super(props);
 
     this.refContainer = this.refContainer.bind(this);
@@ -26,11 +53,9 @@ class Vimeo extends Component {
     this.player.destroy();
   }
 
-  /**
-   * @private
-   */
-  getInitialOptions() {
+  getInitialOptions(): Options {
     return {
+      // @ts-ignore
       id: this.props.video,
       width: this.props.width,
       height: this.props.height,
@@ -48,13 +73,15 @@ class Vimeo extends Component {
   createPlayer() {
     const { start } = this.props;
 
+    // @ts-ignore
     this.player = new Player(this.container, this.getInitialOptions());
 
-    Object.keys(eventNames).forEach((dmName) => {
+    (Object.keys(eventNames) as EventKey[]).forEach((dmName) => {
       const reactName = eventNames[dmName];
       this.player.on(dmName, (event) => {
         const handler = this.props[reactName];
         if (handler) {
+          // @ts-ignore
           handler(event);
         }
       });
@@ -64,11 +91,13 @@ class Vimeo extends Component {
     this.player.ready().then(
       () => {
         if (onReady) {
+          // @ts-ignore
           onReady(this.player);
         }
       },
       (err) => {
         if (onError) {
+          // @ts-ignore
           onError(err);
         } else {
           throw err;
@@ -81,10 +110,9 @@ class Vimeo extends Component {
     }
   }
 
-  /**
-   * @private
-   */
+  // @ts-ignore
   refContainer(container) {
+    // @ts-ignore
     this.container = container;
   }
 
